@@ -15,7 +15,7 @@ public class HomeController {
     }
 
     @RequestMapping("/pagedemo")
-    public String jspPage(Model model){
+    public String pagedemo(Model model){
 //        model.addAttribute("name", "springboot1234");
 
         return "home";
