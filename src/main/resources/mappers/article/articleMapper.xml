@@ -5,4 +5,61 @@
 
 <mapper namespace="com.example.pagedemo.mappers.article.ArticleMapper">
 
+    <insert id="create">
+        INSERT INTO tb_article (
+                                article_no
+                                , title
+                                , content
+                                , writer
+                                , regdate
+                                , viewcnt
+        ) VALUES (
+                  #{article_no}
+                  , #{title}
+                  , #{content}
+                  , #{writer}
+                  , #{regdate}
+                  , #{viewCnt}
+                         )
+    </insert>
+
+    <update id="update">
+        UPDATE tb_article
+        SET
+                              title = #{title}
+                              , content = #{content}
+        WHERE
+            article_no = #{article_no}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM tb_article
+        WHERE article_no = #{article_no}
+    </delete>
+
+    <select id="listAll" resultType="ArticleVO">
+<!--        CDATA: Character DATA, 문자형 데이터 -->
+        <![CDATA[
+        SELECT
+            article_no
+            , title
+            , content
+            , writer
+            , regdate
+            , viewcont
+        FROM tb_article
+        WHERE article_no > 0
+        ORDER BY article_no DESC, regdate DESC
+        ]]>
+    </select>
+
+<!--    resultMap: Java 객체의 변수명과 DB 컬럼명이 다를 경우 사용 -->
+    <resultMap id="ArticleResultMap" type="ArticleVO">
+        <id property="article_no" column="article_no" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="writer" column="writer" />
+        <result property="regDate" column="regdate" />
+        <result property="viewCnt" column="viewcnt" />
+    </resultMap>
 </mapper>
